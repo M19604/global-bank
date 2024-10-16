@@ -1,0 +1,591 @@
+<!--** WRITTEN BY LUKE SKUTT, 10/16/2024 **-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Banking 2025</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lilita One">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen">
+</head>
+<body>
+    <div class="page" id="login">
+        <div class="container">
+            <div class="title">Login</div>
+            <div class="subtitle">Login to your acccount to continue</div>
+            <input id="pin" placeholder="Account PIN" type="password">
+        </div>
+    </div>
+    <div class="page" id="main">
+        <div class="infoContainer">
+            <a id="name"></a>
+            <a id="balance"></a>
+        </div>
+        <form name="Bank Tracking" class="transfer">
+            <input id="transfer" type="text" placeholder="Transfer to..." style="top: 7.5%;">
+            <input name="Transaction" id="amount" type="number" placeholder="Amount..." autocomplete="off" style="top: 37.5%;">
+            <input name="Recipient" id="recipient" style="display: none;">
+            <input name="Recipient Balance" id="recipientBalance" style="display: none;">
+            <input name="Sender" id="sender" style="display: none;">
+            <input name="Sender Balance" id="senderBalance" style="display: none;">
+            <div id="transferSubmit" style="top: 67.5%">Transfer</div>
+        </form>
+        <div class="overview">
+            <div class="inner">
+                <div class="line" style="top: 5%"></div>
+                <div class="line" style="top: 27.5%"></div>
+                <div class="line" style="top: 50%"></div>
+                <div class="line" style="top: 72.5%"></div>
+                <div class="line" style="top: 95%"></div>
+                <div class="point" id="point1"></div>
+                <div class="point" id="point2"></div>
+                <div class="point" id="point3"></div>
+                <div class="point" id="point4"></div>
+                <div class="point" id="point5"></div>
+            </div>
+        </div>
+    </div>
+    <div class="page" id="signupPage">
+        <div class="container">
+            <form name="Account Tracking">
+                <div class="title">Create Account</div>
+                <input name="Name" type="text" id="newName" placeholder="Full Name..." maxlength="25" autocomplete="off">
+                <input name="Email" type="email" id="newEmail" placeholder="Email..." autocomplete="off">
+                <input name="PIN" id="newPin" hidden>
+                <div id="signupError"></div>
+                <div id="createBTN">Create</div>
+            </form>
+        </div>
+    </div>
+    <div id="loading">
+        <div class="center"></div>
+    </div>
+</body>
+<!-- <script src="https://bankdata.w3spaces.com/data.js"></script> -->
+</html>
+<style>
+body {
+    margin: 0;
+    background-color: #1e2e3d;
+    font-family: "Oxygen";
+    user-select: none;
+    color: #d6cccc;
+}
+
+::selection {
+    color: #1e2e3d;
+    background-color: #d6cccc;
+}
+
+#login {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .3s;
+    z-index: 2;
+}
+
+#login .container {
+    width: 40%;
+    height: 35%;
+    border-radius: 1vw;
+    background-color: #273444;
+    position: relative;
+}
+
+#login .container .title {
+    font-size: 2.5vw;
+    position: absolute;
+    top: 2.5vw;
+    left: 3vw;
+    font-family: "Lilita One";
+}
+
+#login .container .subtitle {
+    color: #7f838e;
+    position: absolute;
+    top: 6vw;
+    left: 3vw;
+}
+
+#login .container #pin {
+    width: 90%;
+    height: 30%;
+    border-radius: .5vw;
+    background-color: #1e2e3d;
+    border: .2vw solid #1e2e3d;
+    outline: none;
+    position: absolute;
+    top: 55%;
+    left: 5%;
+    box-sizing: border-box;
+    padding: 0 2vw 0 2vw;
+    color: #d6cccc;
+    font-size: 1.75vw;
+    font-family: "Oxygen";
+    transition: .3s;
+}
+
+#login .container #pin:focus {
+    border: .2vw solid #304355;
+}
+
+#main {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: .3s;
+}
+
+#main .infoContainer {
+    background-color: #273444;
+    width: 42.5%;
+    height: 22.5%;
+    position: absolute;
+    left: 5%;
+    bottom: 72.5%;
+    border-radius: 1vw;
+    display: flex;
+    align-items: center;
+}
+
+#main .infoContainer #name {
+    font-family: "Lilita One";
+    font-size: 2vw;
+    position: absolute;
+    left: 0;
+    top: 20%;
+    color: #7f838e;
+    height: 30%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#main .infoContainer #balance {
+    font-size: 2vw;
+    position: absolute;
+    left: 0;
+    bottom: 20%;
+    height: 30%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#main .transfer {
+    background-color: #273444;
+    width: 42.5%;
+    height: 62.5%;
+    position: absolute;
+    left: 5%;
+    bottom: 5%;
+    border-radius: 1vw;
+}
+
+#main .transfer #transferSubmit,
+#main .transfer input {
+    width: 90%;
+    height: 25%;
+    background-color: #1e2e3d;
+    border: .2vw solid #1e2e3d;
+    outline: none;
+    box-sizing: border-box;
+    padding: 0 2vw 0 2vw;
+    color: #d6cccc;
+    font-size: 1.75vw;
+    font-family: "Oxygen";
+    transition: .3s;
+    border-radius: .5vw;
+    position: absolute;
+    left: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#main .transfer input:focus {
+    border: .2vw solid #304355;
+}
+
+#main .transfer #transferSubmit {
+    cursor: pointer;
+}
+
+#main .transfer #transferSubmit:hover {
+    filter: brightness(85%);
+}
+
+#main .overview {
+    background-color: #273444;
+    width: 42.5%;
+    height: 90%;
+    position: absolute;
+    right: 5%;
+    bottom: 5%;
+    border-radius: 1vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#main .overview .inner {
+    height: 90%;
+    width: 90%;
+    background-color: #1e2e3d;
+    border-radius: 1vw;
+    position: relative;
+}
+
+#main .overview .inner .line {
+    width: 100%;
+    height: .1vw;
+    background-color: #273b4e;
+    position: absolute;
+    left: 0;
+}
+
+#main .overview .inner .point {
+    width: 2%;
+    aspect-ratio: 1;
+    background-color: #5050fe;
+    border-radius: 50%;
+    position: absolute;
+}
+
+#point1 {
+    left: 5%;
+}
+
+#point2 {
+    left: 27.5%;
+}
+
+#point3 {
+    left: 50%;
+}
+
+#point4 {
+    left: 72.5%;
+}
+
+#point5 {
+    right: 5%;
+}
+
+#signupPage {
+    display: none;
+}
+
+#loading {
+    width: 15%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-image: conic-gradient(#1e2e3d, #304355);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: spin 3s infinite linear;
+    position: absolute;
+    left: 42.5%;
+    top: calc((100vh - 15vw)/2);
+    display: none;
+}
+
+#loading .center {
+    width: 85%;
+    aspect-ratio: 1;
+    background-color: #1e2e3d;
+    border-radius: 50%;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotateZ(0deg);
+    }
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+</style>
+<script>
+// window.onload = function() {
+//     for (let i = 0; i < document.getElementsByClassName("point").length; i++) {
+//         alert(clientData[pin.value])
+//         document.getElementsByClassName("point")[i].style.bottom = clientData[pin.value]/1000000*100+"%";
+//     }
+//     var line = document.createElement("div");
+//     line.style.backgroundColor = "#5050fe";
+//     line.style.position = "absolute";
+//     line.style.height = ".2vw";
+//     line.style.width = Math.ceil(Math.sqrt((document.getElementById("point1").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)*(document.getElementById("point1").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)+(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top)*(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top)))+"px";
+//     line.style.transform = `rotate(${Math.atan2(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point1").getBoundingClientRect().top, document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point1").getBoundingClientRect().left)*180/Math.PI}deg)`;
+//     line.style.left = (document.getElementById("point1").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("point1").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)*(document.getElementById("point1").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)+(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top)*(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top))) - Math.abs(document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point1").getBoundingClientRect().left))/2)+4+"px";
+//     line.style.top = (Math.min(document.getElementById("point1").getBoundingClientRect().top,document.getElementById("point2").getBoundingClientRect().top) + Math.abs(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top)/2)+3+"px";
+//     document.getElementById("main").appendChild(line);
+//     var line2 = document.createElement("div");
+//     line2.style.backgroundColor = "#5050fe";
+//     line2.style.position = "absolute";
+//     line2.style.height = ".2vw";
+//     line2.style.width = Math.ceil(Math.sqrt((document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)*(document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)+(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top)*(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top)))+"px";
+//     line2.style.transform = `rotate(${Math.atan2(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top, document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)*180/Math.PI}deg)`;
+//     line2.style.left = (document.getElementById("point2").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)*(document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)+(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top)*(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top))) - Math.abs(document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left))/2)+4+"px";
+//     line2.style.top = (Math.min(document.getElementById("point2").getBoundingClientRect().top,document.getElementById("point3").getBoundingClientRect().top) + Math.abs(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top)/2)+3+"px";
+//     document.getElementById("main").appendChild(line2);
+//     var line3 = document.createElement("div");
+//     line3.style.backgroundColor = "#5050fe";
+//     line3.style.position = "absolute";
+//     line3.style.height = ".2vw";
+//     line3.style.width = Math.ceil(Math.sqrt((document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)*(document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)+(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top)*(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top)))+"px";
+//     line3.style.transform = `rotate(${Math.atan2(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top, document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)*180/Math.PI}deg)`;
+//     line3.style.left = (document.getElementById("point3").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)*(document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)+(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top)*(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top))) - Math.abs(document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left))/2)+7+"px";
+//     line3.style.top = (Math.min(document.getElementById("point3").getBoundingClientRect().top,document.getElementById("point4").getBoundingClientRect().top) + Math.abs(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top)/2)+2.5+"px";
+//     document.getElementById("main").appendChild(line3);
+//     var line4 = document.createElement("div");
+//     line4.style.backgroundColor = "#5050fe";
+//     line4.style.position = "absolute";
+//     line4.style.height = ".2vw";
+//     line4.style.width = Math.ceil(Math.sqrt((document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point5").getBoundingClientRect().left)*(document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point5").getBoundingClientRect().left)+(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top)*(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top)))+"px";
+//     line4.style.transform = `rotate(${Math.atan2(document.getElementById("point5").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top, document.getElementById("point5").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)*180/Math.PI}deg)`;
+//     line4.style.left = (document.getElementById("point4").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point5").getBoundingClientRect().left)*(document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point5").getBoundingClientRect().left)+(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top)*(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top))) - Math.abs(document.getElementById("point5").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left))/2)+7+"px";
+//     line4.style.top = (Math.min(document.getElementById("point4").getBoundingClientRect().top,document.getElementById("point5").getBoundingClientRect().top) + Math.abs(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top)/2)+2.5+"px";
+//     document.getElementById("main").appendChild(line4);
+// }
+
+var pin = document.getElementById("pin");
+pin.addEventListener("keyup", e => {
+    if (e.key === "Enter") {
+        login(pin.value);
+    }
+})
+
+function login(code) {
+    document.getElementById("login").style.opacity = 0;
+    document.getElementById("loading").style.display = "flex";
+    if (clientData.hasOwnProperty(code)) {
+        connect(code);
+        setTimeout(function() {
+            document.getElementById("main").style.opacity = 1;
+            document.getElementById("loading").style.display = "none";
+        }, 500)
+    } else {
+        setTimeout(function() {
+            pin.value = "";
+            document.getElementsByClassName("subtitle")[0].textContent = "Invalid PIN";
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("login").style.opacity = 1;
+            setTimeout(function() {
+                document.getElementsByClassName("subtitle")[0].textContent = "Login to your account to continue";
+            }, 3000)
+        }, 500)
+    }
+}
+
+function connect(pin) {
+    document.getElementById("main").style.display = "block";
+    document.getElementById("balance").textContent = `$${parseInt(clientData[pin]).toLocaleString()}`;
+    document.getElementById("name").textContent = clientNames[pin];
+    for (let i = 0; i < document.getElementsByClassName("point").length; i++) {
+        alert(clientData[pin.value])
+        document.getElementsByClassName("point")[i].style.bottom = clientData[pin]/1000000*100+"%";
+    }
+    var line = document.createElement("div");
+    line.style.backgroundColor = "#5050fe";
+    line.style.position = "absolute";
+    line.style.height = ".2vw";
+    line.style.width = Math.ceil(Math.sqrt((document.getElementById("point1").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)*(document.getElementById("point1").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)+(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top)*(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top)))+"px";
+    line.style.transform = `rotate(${Math.atan2(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point1").getBoundingClientRect().top, document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point1").getBoundingClientRect().left)*180/Math.PI}deg)`;
+    line.style.left = (document.getElementById("point1").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("point1").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)*(document.getElementById("point1").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)+(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top)*(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top))) - Math.abs(document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point1").getBoundingClientRect().left))/2)+4+"px";
+    line.style.top = (Math.min(document.getElementById("point1").getBoundingClientRect().top,document.getElementById("point2").getBoundingClientRect().top) + Math.abs(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top)/2)+3+"px";
+    document.getElementById("main").appendChild(line);
+    var line2 = document.createElement("div");
+    line2.style.backgroundColor = "#5050fe";
+    line2.style.position = "absolute";
+    line2.style.height = ".2vw";
+    line2.style.width = Math.ceil(Math.sqrt((document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)*(document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)+(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top)*(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top)))+"px";
+    line2.style.transform = `rotate(${Math.atan2(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top, document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)*180/Math.PI}deg)`;
+    line2.style.left = (document.getElementById("point2").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)*(document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)+(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top)*(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top))) - Math.abs(document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left))/2)+4+"px";
+    line2.style.top = (Math.min(document.getElementById("point2").getBoundingClientRect().top,document.getElementById("point3").getBoundingClientRect().top) + Math.abs(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top)/2)+3+"px";
+    document.getElementById("main").appendChild(line2);
+    var line3 = document.createElement("div");
+    line3.style.backgroundColor = "#5050fe";
+    line3.style.position = "absolute";
+    line3.style.height = ".2vw";
+    line3.style.width = Math.ceil(Math.sqrt((document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)*(document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)+(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top)*(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top)))+"px";
+    line3.style.transform = `rotate(${Math.atan2(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top, document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)*180/Math.PI}deg)`;
+    line3.style.left = (document.getElementById("point3").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)*(document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)+(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top)*(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top))) - Math.abs(document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left))/2)+7+"px";
+    line3.style.top = (Math.min(document.getElementById("point3").getBoundingClientRect().top,document.getElementById("point4").getBoundingClientRect().top) + Math.abs(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top)/2)+2.5+"px";
+    document.getElementById("main").appendChild(line3);
+    var line4 = document.createElement("div");
+    line4.style.backgroundColor = "#5050fe";
+    line4.style.position = "absolute";
+    line4.style.height = ".2vw";
+    line4.style.width = Math.ceil(Math.sqrt((document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point5").getBoundingClientRect().left)*(document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point5").getBoundingClientRect().left)+(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top)*(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top)))+"px";
+    line4.style.transform = `rotate(${Math.atan2(document.getElementById("point5").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top, document.getElementById("point5").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)*180/Math.PI}deg)`;
+    line4.style.left = (document.getElementById("point4").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point5").getBoundingClientRect().left)*(document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point5").getBoundingClientRect().left)+(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top)*(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top))) - Math.abs(document.getElementById("point5").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left))/2)+7+"px";
+    line4.style.top = (Math.min(document.getElementById("point4").getBoundingClientRect().top,document.getElementById("point5").getBoundingClientRect().top) + Math.abs(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top)/2)+2.5+"px";
+    document.getElementById("main").appendChild(line4);
+}
+
+const clientNames = {
+    abc:"Test Account"
+}
+const clientData = {}
+var serverURL1 = "";
+var serverURL2 = "https://sheetdb.io/api/v1/c6fsu6g25zbol"; // usabankingserver1@gmail.com
+var serverURL3 = "https://sheetdb.io/api/v1/dhfrn9eco3t9u"; // usabankingserver2@gmail.com
+var serverURL4 = "";
+var serverURL5 = "";
+function updateData() {
+fetch(serverURL1).then(response => {
+console.log("Server 1 connected.");
+return response.json();
+}).then(data => {
+for(let i = 0; i < Object.keys(clientNames).length; i++){
+var x = Object.keys(clientNames)[i];
+var y = data[0][x];
+clientData[x] = y;
+}
+}).catch(err => {
+fetch(serverURL2).then(response => {
+console.log("Server 2 connected.");
+return response.json();
+}).then(data => {
+for(let i = 0; i < Object.keys(clientNames).length; i++){
+var x = Object.keys(clientNames)[i];
+var y = data[0][x];
+clientData[x] = y;
+}
+}).catch(err => {
+fetch(serverURL2).then(response => {
+console.log("Server 3 connected.");
+return response.json();
+}).then(data => {
+for(let i = 0; i < Object.keys(clientNames).length; i++){
+var x = Object.keys(clientNames)[i];
+var y = data[0][x];
+clientData[x] = y;
+}
+}).catch(err => {
+setInterval(function() {
+alert("We ran into an error! Please contact 012578@clioschools.net for support.");
+})
+});
+});
+});
+}
+updateData();
+
+var btn = document.getElementById("signup");
+btn.addEventListener("click", e => {
+    document.getElementById("signupPage").style.display = "flex";
+    document.getElementById("login").style.display = "none";
+})
+var createBTN = document.getElementById("createBTN");
+var nameElement = document.getElementById("newName");
+var emailElement = document.getElementById("newEmail");
+var errorElement = document.getElementById("signupError");
+createBTN.addEventListener("click", e => {
+    if (nameElement.value === "" || emailElement.value === "") {
+        errorElement.textContent = "Invalid information.";
+        setTimeout(function() {
+            errorElement.textContent = "";
+        }, 3000)
+    } else {
+        var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        var interval = setInterval(function() {
+            var tryPin = characters[Math.floor(Math.random() * characters.length)] + characters[Math.floor(Math.random() * characters.length)] + characters[Math.floor(Math.random() * characters.length)] + characters[Math.floor(Math.random() * characters.length)] + characters[Math.floor(Math.random() * characters.length)];
+            if (Object.values(clientData).includes(tryPin)) {
+            } else {
+                clearInterval(interval);
+                document.getElementById("newPin").value = tryPin;
+                sendAccount();
+                nameElement.value = "";
+                emailElement.value = "";
+                alert("Account will be created soon.")
+            }
+        })
+    }
+})
+
+function sendTransfer() {
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxQxAtSfveHFGC9om1iAXzCAvbCttJ6ok0iZtA5gsuQ5rBQeN6BQGnD40kIoEXb5rWp/exec';
+    const form = document.forms["Bank Tracking"];
+    fetch(scriptURL, { method: 'POST', body: new FormData(form) });
+    // LOG TRANSFER
+    const scriptURL2 = "https://script.google.com/macros/s/AKfycbyWwtOicigudMa_WXq0z7OpGu16knVtoDzYYCwcMn7pfdIwvrAeEKxlJeVHHd8LU9NU/exec";
+    fetch(scriptURL2, { method:"POST", body: new FormData(form) });
+    // LOG ADD
+    const scriptURL1 = "https://script.google.com/macros/s/AKfycbyyMH_jQ5Z8B098nRoW2c9xc7p6XETMdOf-uXhpV4hgGohti874GtwstZR0Rbx_YYxU/exec";
+    fetch(scriptURL1, { method:"POST", body: new FormData(form) });
+}
+
+function sendAccount() {
+    const scriptURL = "https://script.google.com/macros/s/AKfycbyd73kwkcEO989KkyQsSba3agWKByg7UBgCbKy0KKVOVEjYDRpnpagyY-soJzzkIrfk/exec";
+    const form = document.forms["Account Tracking"];
+    fetch(scriptURL, { method: "POST", body : new FormData(form) });
+}
+
+var transferBTN = document.getElementById("transferSubmit");
+var transfer = document.getElementById("transfer");
+var amount = document.getElementById("amount");
+var transferErrorElement = document.getElementById("transferError");
+var recipient = document.getElementById("recipient");
+var recipientBalance = document.getElementById("recipientBalance");
+var sender = document.getElementById("sender");
+var senderBalance = document.getElementById("senderBalance");
+transferBTN.addEventListener("click", e => {
+    submitTransfer();
+})
+amount.addEventListener("keyup", e => {
+    if (e.key === "Enter") {
+        submitTransfer();
+    }
+})
+transfer.addEventListener("keyup", e => {
+    if (e.key === "Enter") {
+        submitTransfer();
+    }
+})
+function submitTransfer() {
+    if (Object.values(clientNames).includes(transfer.value.trim()) && transfer.value.trim() !== document.getElementById("name").textContent.trim() && !transfer.value .includes("-")) {
+        if (Object.values(clientData)[Object.values(clientNames).indexOf(document.getElementById("name").textContent)] >= amount.valueAsNumber) {
+            sender.value = Object.getOwnPropertyNames(clientData)[Object.values(clientNames).indexOf(document.getElementById("name").textContent)];
+            senderBalance.value = Object.values(clientData)[Object.values(clientNames).indexOf(document.getElementById("name").textContent)] - parseInt(amount.value.replace("e", "").replace("-", ""));
+            recipient.value = Object.getOwnPropertyNames(clientData)[Object.values(clientNames).indexOf(transfer.value.trim())];
+            recipientBalance.value = Object.values(clientData)[Object.values(clientNames).indexOf(transfer.value.trim())] + parseInt(amount.value.replace("e", "").replace("-", ""));
+            sendTransfer();
+            setTimeout(function() {
+                transferErrorElement.textContent = "";
+                transfer.value = "";
+                amount.value = "";
+                recipient.value = "";
+                recipientBalance.value = "";
+                sender.value = "";
+                senderBalance.value = "";
+            }, 500)
+            alert("Money will be transferred soon.");
+        } else {
+            transferError("Insufficient funds.");
+        }
+    } else {
+        transferError("Invalid name.");
+    }
+}
+function transferError(text) {
+    setTimeout(function() {
+        transferErrorElement.textContent = "";
+    }, 3000)
+}
+</script>
+<!--** WRITTEN BY LUKE SKUTT, 10/16/2024 **-->
