@@ -374,6 +374,7 @@ function login(code) {
     document.getElementById("loading").style.display = "flex";
     if (clientData.hasOwnProperty(code)) {
         connect(code);
+        document.getElementById("login").style.display = "none";
         setTimeout(function() {
             document.getElementById("main").style.opacity = 1;
             document.getElementById("loading").style.display = "none";
@@ -396,7 +397,6 @@ function connect(pin) {
     document.getElementById("balance").textContent = `$${parseInt(clientData[pin]).toLocaleString()}`;
     document.getElementById("name").textContent = clientNames[pin];
     for (let i = 0; i < document.getElementsByClassName("point").length; i++) {
-        alert(clientData[pin.value])
         document.getElementsByClassName("point")[i].style.bottom = clientData[pin]/1000000*100+"%";
     }
     var line = document.createElement("div");
