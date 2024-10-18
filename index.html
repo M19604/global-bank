@@ -42,6 +42,11 @@
                 <div class="point" id="point3"></div>
                 <div class="point" id="point4"></div>
                 <div class="point" id="point5"></div>
+                <div class="averagePoint" id="averagePoint1"></div>
+                <div class="averagePoint" id="averagePoint2"></div>
+                <div class="averagePoint" id="averagePoint3"></div>
+                <div class="averagePoint" id="averagePoint4"></div>
+                <div class="averagePoint" id="averagePoint5"></div>
             </div>
         </div>
     </div>
@@ -245,6 +250,8 @@ body {
     background-color: #1e2e3d;
     border-radius: 1vw;
     position: relative;
+    box-sizing: border-box;
+    padding: 5vh 0 5vh 0;
 }
 
 #main .overview .inner .line {
@@ -255,6 +262,7 @@ body {
     left: 0;
 }
 
+#main .overview .inner .averagePoint,
 #main .overview .inner .point {
     width: 2%;
     aspect-ratio: 1;
@@ -263,22 +271,31 @@ body {
     position: absolute;
 }
 
+#main .overview .inner .averagePoint {
+    background-color: #60636b;
+}
+
+#averagePoint1,
 #point1 {
     left: 5%;
 }
 
+#averagePoint2,
 #point2 {
     left: 27.5%;
 }
 
+#averagePoint3,
 #point3 {
     left: 50%;
 }
 
+#averagePoint4,
 #point4 {
     left: 72.5%;
 }
 
+#averagePoint5,
 #point5 {
     right: 5%;
 }
@@ -319,49 +336,6 @@ body {
 }
 </style>
 <script>
-// window.onload = function() {
-//     for (let i = 0; i < document.getElementsByClassName("point").length; i++) {
-//         alert(clientData[pin.value])
-//         document.getElementsByClassName("point")[i].style.bottom = clientData[pin.value]/1000000*100+"%";
-//     }
-//     var line = document.createElement("div");
-//     line.style.backgroundColor = "#5050fe";
-//     line.style.position = "absolute";
-//     line.style.height = ".2vw";
-//     line.style.width = Math.ceil(Math.sqrt((document.getElementById("point1").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)*(document.getElementById("point1").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)+(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top)*(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top)))+"px";
-//     line.style.transform = `rotate(${Math.atan2(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point1").getBoundingClientRect().top, document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point1").getBoundingClientRect().left)*180/Math.PI}deg)`;
-//     line.style.left = (document.getElementById("point1").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("point1").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)*(document.getElementById("point1").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)+(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top)*(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top))) - Math.abs(document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point1").getBoundingClientRect().left))/2)+4+"px";
-//     line.style.top = (Math.min(document.getElementById("point1").getBoundingClientRect().top,document.getElementById("point2").getBoundingClientRect().top) + Math.abs(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top)/2)+3+"px";
-//     document.getElementById("main").appendChild(line);
-//     var line2 = document.createElement("div");
-//     line2.style.backgroundColor = "#5050fe";
-//     line2.style.position = "absolute";
-//     line2.style.height = ".2vw";
-//     line2.style.width = Math.ceil(Math.sqrt((document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)*(document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)+(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top)*(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top)))+"px";
-//     line2.style.transform = `rotate(${Math.atan2(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top, document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)*180/Math.PI}deg)`;
-//     line2.style.left = (document.getElementById("point2").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)*(document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)+(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top)*(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top))) - Math.abs(document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left))/2)+4+"px";
-//     line2.style.top = (Math.min(document.getElementById("point2").getBoundingClientRect().top,document.getElementById("point3").getBoundingClientRect().top) + Math.abs(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top)/2)+3+"px";
-//     document.getElementById("main").appendChild(line2);
-//     var line3 = document.createElement("div");
-//     line3.style.backgroundColor = "#5050fe";
-//     line3.style.position = "absolute";
-//     line3.style.height = ".2vw";
-//     line3.style.width = Math.ceil(Math.sqrt((document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)*(document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)+(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top)*(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top)))+"px";
-//     line3.style.transform = `rotate(${Math.atan2(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top, document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)*180/Math.PI}deg)`;
-//     line3.style.left = (document.getElementById("point3").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)*(document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)+(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top)*(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top))) - Math.abs(document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left))/2)+7+"px";
-//     line3.style.top = (Math.min(document.getElementById("point3").getBoundingClientRect().top,document.getElementById("point4").getBoundingClientRect().top) + Math.abs(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top)/2)+2.5+"px";
-//     document.getElementById("main").appendChild(line3);
-//     var line4 = document.createElement("div");
-//     line4.style.backgroundColor = "#5050fe";
-//     line4.style.position = "absolute";
-//     line4.style.height = ".2vw";
-//     line4.style.width = Math.ceil(Math.sqrt((document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point5").getBoundingClientRect().left)*(document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point5").getBoundingClientRect().left)+(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top)*(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top)))+"px";
-//     line4.style.transform = `rotate(${Math.atan2(document.getElementById("point5").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top, document.getElementById("point5").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)*180/Math.PI}deg)`;
-//     line4.style.left = (document.getElementById("point4").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point5").getBoundingClientRect().left)*(document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point5").getBoundingClientRect().left)+(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top)*(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top))) - Math.abs(document.getElementById("point5").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left))/2)+7+"px";
-//     line4.style.top = (Math.min(document.getElementById("point4").getBoundingClientRect().top,document.getElementById("point5").getBoundingClientRect().top) + Math.abs(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top)/2)+2.5+"px";
-//     document.getElementById("main").appendChild(line4);
-// }
-
 var pin = document.getElementById("pin");
 pin.addEventListener("keyup", e => {
     if (e.key === "Enter") {
@@ -396,52 +370,122 @@ function connect(pin) {
     document.getElementById("main").style.display = "block";
     document.getElementById("balance").textContent = `$${parseInt(clientData[pin]).toLocaleString()}`;
     document.getElementById("name").textContent = clientNames[pin];
-    for (let i = 0; i < document.getElementsByClassName("point").length; i++) {
-        document.getElementsByClassName("point")[i].style.bottom = clientData[pin]/1000000*100+"%";
+    var highest = 0;
+    var total = 0;
+    for (let z = 0; z < Object.values(clientNames).length; z++) {
+        total += parseInt(clientData[Object.keys(clientNames)[z]]);
+        if (parseInt(clientData[Object.keys(clientNames)[z]])>highest) {
+            highest = clientData[Object.keys(clientNames)[z]];
+        }
     }
-    var line = document.createElement("div");
-    line.style.backgroundColor = "#5050fe";
-    line.style.position = "absolute";
-    line.style.height = ".2vw";
-    line.style.width = Math.ceil(Math.sqrt((document.getElementById("point1").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)*(document.getElementById("point1").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)+(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top)*(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top)))+"px";
-    line.style.transform = `rotate(${Math.atan2(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point1").getBoundingClientRect().top, document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point1").getBoundingClientRect().left)*180/Math.PI}deg)`;
-    line.style.left = (document.getElementById("point1").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("point1").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)*(document.getElementById("point1").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)+(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top)*(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top))) - Math.abs(document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point1").getBoundingClientRect().left))/2)+4+"px";
-    line.style.top = (Math.min(document.getElementById("point1").getBoundingClientRect().top,document.getElementById("point2").getBoundingClientRect().top) + Math.abs(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top)/2)+3+"px";
-    document.getElementById("main").appendChild(line);
-    var line2 = document.createElement("div");
-    line2.style.backgroundColor = "#5050fe";
-    line2.style.position = "absolute";
-    line2.style.height = ".2vw";
-    line2.style.width = Math.ceil(Math.sqrt((document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)*(document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)+(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top)*(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top)))+"px";
-    line2.style.transform = `rotate(${Math.atan2(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top, document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)*180/Math.PI}deg)`;
-    line2.style.left = (document.getElementById("point2").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)*(document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)+(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top)*(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top))) - Math.abs(document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left))/2)+4+"px";
-    line2.style.top = (Math.min(document.getElementById("point2").getBoundingClientRect().top,document.getElementById("point3").getBoundingClientRect().top) + Math.abs(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top)/2)+3+"px";
-    document.getElementById("main").appendChild(line2);
-    var line3 = document.createElement("div");
-    line3.style.backgroundColor = "#5050fe";
-    line3.style.position = "absolute";
-    line3.style.height = ".2vw";
-    line3.style.width = Math.ceil(Math.sqrt((document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)*(document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)+(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top)*(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top)))+"px";
-    line3.style.transform = `rotate(${Math.atan2(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top, document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)*180/Math.PI}deg)`;
-    line3.style.left = (document.getElementById("point3").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)*(document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)+(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top)*(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top))) - Math.abs(document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left))/2)+7+"px";
-    line3.style.top = (Math.min(document.getElementById("point3").getBoundingClientRect().top,document.getElementById("point4").getBoundingClientRect().top) + Math.abs(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top)/2)+2.5+"px";
-    document.getElementById("main").appendChild(line3);
-    var line4 = document.createElement("div");
-    line4.style.backgroundColor = "#5050fe";
-    line4.style.position = "absolute";
-    line4.style.height = ".2vw";
-    line4.style.width = Math.ceil(Math.sqrt((document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point5").getBoundingClientRect().left)*(document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point5").getBoundingClientRect().left)+(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top)*(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top)))+"px";
-    line4.style.transform = `rotate(${Math.atan2(document.getElementById("point5").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top, document.getElementById("point5").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)*180/Math.PI}deg)`;
-    line4.style.left = (document.getElementById("point4").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point5").getBoundingClientRect().left)*(document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point5").getBoundingClientRect().left)+(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top)*(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top))) - Math.abs(document.getElementById("point5").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left))/2)+7+"px";
-    line4.style.top = (Math.min(document.getElementById("point4").getBoundingClientRect().top,document.getElementById("point5").getBoundingClientRect().top) + Math.abs(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top)/2)+2.5+"px";
-    document.getElementById("main").appendChild(line4);
+    if (localStorage.getItem(`${pin}Logon1`)===null) {
+        localStorage.setItem(`${pin}Logon1`, clientData[pin]/highest*100==100?95:clientData[pin]/highest*100);
+        localStorage.setItem(`${pin}Logon2`, clientData[pin]/highest*100==100?95:clientData[pin]/highest*100);
+        localStorage.setItem(`${pin}Logon3`, clientData[pin]/highest*100==100?95:clientData[pin]/highest*100);
+        localStorage.setItem(`${pin}Logon4`, clientData[pin]/highest*100==100?95:clientData[pin]/highest*100);
+        localStorage.setItem(`${pin}Logon5`, clientData[pin]/highest*100==100?95:clientData[pin]/highest*100);
+    } else {
+        localStorage.setItem(`${pin}Logon1`, localStorage.getItem(`${pin}Logon2`));
+        localStorage.setItem(`${pin}Logon2`, localStorage.getItem(`${pin}Logon3`));
+        localStorage.setItem(`${pin}Logon3`, localStorage.getItem(`${pin}Logon4`));
+        localStorage.setItem(`${pin}Logon4`, localStorage.getItem(`${pin}Logon5`));
+        localStorage.setItem(`${pin}Logon5`, clientData[pin]/highest*100==100?95:clientData[pin]/highest*100);
+    }
+    setTimeout(function() {
+        document.getElementById("point5").style.bottom = localStorage.getItem(`${pin}Logon5`)+"%";
+        document.getElementById("point4").style.bottom = localStorage.getItem(`${pin}Logon4`)+"%";
+        document.getElementById("point3").style.bottom = localStorage.getItem(`${pin}Logon3`)+"%";
+        document.getElementById("point2").style.bottom = localStorage.getItem(`${pin}Logon2`)+"%";
+        document.getElementById("point1").style.bottom = localStorage.getItem(`${pin}Logon1`)+"%";
+        for (let v = 0; v < document.getElementsByClassName("averagePoint").length; v++) {
+            document.getElementsByClassName("averagePoint")[v].style.bottom = (total/Object.values(clientNames).length)/highest*100+"%";
+        }
+        var line = document.createElement("div");
+        line.style.backgroundColor = "#5050fe";
+        line.style.position = "absolute";
+        line.style.height = ".2vw";
+        line.style.width = Math.ceil(Math.sqrt((document.getElementById("point1").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)*(document.getElementById("point1").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)+(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top)*(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top)))+"px";
+        line.style.transform = `rotate(${Math.atan2(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point1").getBoundingClientRect().top, document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point1").getBoundingClientRect().left)*180/Math.PI}deg)`;
+        line.style.left = (document.getElementById("point1").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("point1").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)*(document.getElementById("point1").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)+(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top)*(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top))) - Math.abs(document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point1").getBoundingClientRect().left))/2)+4+"px";
+        line.style.top = (Math.min(document.getElementById("point1").getBoundingClientRect().top,document.getElementById("point2").getBoundingClientRect().top) + Math.abs(document.getElementById("point1").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top)/2)+3+"px";
+        document.getElementById("main").appendChild(line);
+        var line2 = document.createElement("div");
+        line2.style.backgroundColor = "#5050fe";
+        line2.style.position = "absolute";
+        line2.style.height = ".2vw";
+        line2.style.width = Math.ceil(Math.sqrt((document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)*(document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)+(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top)*(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top)))+"px";
+        line2.style.transform = `rotate(${Math.atan2(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point2").getBoundingClientRect().top, document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left)*180/Math.PI}deg)`;
+        line2.style.left = (document.getElementById("point2").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)*(document.getElementById("point2").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)+(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top)*(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top))) - Math.abs(document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point2").getBoundingClientRect().left))/2)+4+"px";
+        line2.style.top = (Math.min(document.getElementById("point2").getBoundingClientRect().top,document.getElementById("point3").getBoundingClientRect().top) + Math.abs(document.getElementById("point2").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top)/2)+3+"px";
+        document.getElementById("main").appendChild(line2);
+        var line3 = document.createElement("div");
+        line3.style.backgroundColor = "#5050fe";
+        line3.style.position = "absolute";
+        line3.style.height = ".2vw";
+        line3.style.width = Math.ceil(Math.sqrt((document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)*(document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)+(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top)*(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top)))+"px";
+        line3.style.transform = `rotate(${Math.atan2(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point3").getBoundingClientRect().top, document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left)*180/Math.PI}deg)`;
+        line3.style.left = (document.getElementById("point3").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)*(document.getElementById("point3").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)+(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top)*(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top))) - Math.abs(document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point3").getBoundingClientRect().left))/2)+7+"px";
+        line3.style.top = (Math.min(document.getElementById("point3").getBoundingClientRect().top,document.getElementById("point4").getBoundingClientRect().top) + Math.abs(document.getElementById("point3").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top)/2)+2.5+"px";
+        document.getElementById("main").appendChild(line3);
+        var line4 = document.createElement("div");
+        line4.style.backgroundColor = "#5050fe";
+        line4.style.position = "absolute";
+        line4.style.height = ".2vw";
+        line4.style.width = Math.ceil(Math.sqrt((document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point5").getBoundingClientRect().left)*(document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point5").getBoundingClientRect().left)+(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top)*(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top)))+"px";
+        line4.style.transform = `rotate(${Math.atan2(document.getElementById("point5").getBoundingClientRect().top-document.getElementById("point4").getBoundingClientRect().top, document.getElementById("point5").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left)*180/Math.PI}deg)`;
+        line4.style.left = (document.getElementById("point4").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point5").getBoundingClientRect().left)*(document.getElementById("point4").getBoundingClientRect().left-document.getElementById("point5").getBoundingClientRect().left)+(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top)*(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top))) - Math.abs(document.getElementById("point5").getBoundingClientRect().left-document.getElementById("point4").getBoundingClientRect().left))/2)+7+"px";
+        line4.style.top = (Math.min(document.getElementById("point4").getBoundingClientRect().top,document.getElementById("point5").getBoundingClientRect().top) + Math.abs(document.getElementById("point4").getBoundingClientRect().top-document.getElementById("point5").getBoundingClientRect().top)/2)+2.5+"px";
+        document.getElementById("main").appendChild(line4);
+        var averageLine = document.createElement("div");
+        averageLine.style.backgroundColor = "#60636b";
+        averageLine.style.position = "absolute";
+        averageLine.style.height = ".2vw";
+        averageLine.style.width = Math.ceil(Math.sqrt((document.getElementById("averagePoint1").getBoundingClientRect().left-document.getElementById("averagePoint2").getBoundingClientRect().left)*(document.getElementById("averagePoint1").getBoundingClientRect().left-document.getElementById("averagePoint2").getBoundingClientRect().left)+(document.getElementById("averagePoint1").getBoundingClientRect().top-document.getElementById("averagePoint2").getBoundingClientRect().top)*(document.getElementById("averagePoint1").getBoundingClientRect().top-document.getElementById("averagePoint2").getBoundingClientRect().top)))+"px";
+        averageLine.style.transform = `rotate(${Math.atan2(document.getElementById("averagePoint2").getBoundingClientRect().top-document.getElementById("averagePoint1").getBoundingClientRect().top, document.getElementById("averagePoint2").getBoundingClientRect().left-document.getElementById("averagePoint1").getBoundingClientRect().left)*180/Math.PI}deg)`;
+        averageLine.style.left = (document.getElementById("averagePoint1").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("averagePoint1").getBoundingClientRect().left-document.getElementById("averagePoint2").getBoundingClientRect().left)*(document.getElementById("averagePoint1").getBoundingClientRect().left-document.getElementById("averagePoint2").getBoundingClientRect().left)+(document.getElementById("averagePoint1").getBoundingClientRect().top-document.getElementById("averagePoint2").getBoundingClientRect().top)*(document.getElementById("averagePoint1").getBoundingClientRect().top-document.getElementById("averagePoint2").getBoundingClientRect().top))) - Math.abs(document.getElementById("averagePoint2").getBoundingClientRect().left-document.getElementById("averagePoint1").getBoundingClientRect().left))/2)+4+"px";
+        averageLine.style.top = (Math.min(document.getElementById("averagePoint1").getBoundingClientRect().top,document.getElementById("averagePoint2").getBoundingClientRect().top) + Math.abs(document.getElementById("averagePoint1").getBoundingClientRect().top-document.getElementById("averagePoint2").getBoundingClientRect().top)/2)+3+"px";
+        document.getElementById("main").appendChild(averageLine);
+        var averageLine2 = document.createElement("div");
+        averageLine2.style.backgroundColor = "#60636b";
+        averageLine2.style.position = "absolute";
+        averageLine2.style.height = ".2vw";
+        averageLine2.style.width = Math.ceil(Math.sqrt((document.getElementById("averagePoint2").getBoundingClientRect().left-document.getElementById("averagePoint3").getBoundingClientRect().left)*(document.getElementById("averagePoint2").getBoundingClientRect().left-document.getElementById("averagePoint3").getBoundingClientRect().left)+(document.getElementById("averagePoint2").getBoundingClientRect().top-document.getElementById("averagePoint3").getBoundingClientRect().top)*(document.getElementById("averagePoint2").getBoundingClientRect().top-document.getElementById("averagePoint3").getBoundingClientRect().top)))+"px";
+        averageLine2.style.transform = `rotate(${Math.atan2(document.getElementById("averagePoint3").getBoundingClientRect().top-document.getElementById("averagePoint2").getBoundingClientRect().top, document.getElementById("averagePoint3").getBoundingClientRect().left-document.getElementById("averagePoint2").getBoundingClientRect().left)*180/Math.PI}deg)`;
+        averageLine2.style.left = (document.getElementById("averagePoint2").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("averagePoint2").getBoundingClientRect().left-document.getElementById("averagePoint3").getBoundingClientRect().left)*(document.getElementById("averagePoint2").getBoundingClientRect().left-document.getElementById("averagePoint3").getBoundingClientRect().left)+(document.getElementById("averagePoint2").getBoundingClientRect().top-document.getElementById("averagePoint3").getBoundingClientRect().top)*(document.getElementById("averagePoint2").getBoundingClientRect().top-document.getElementById("averagePoint3").getBoundingClientRect().top))) - Math.abs(document.getElementById("averagePoint3").getBoundingClientRect().left-document.getElementById("averagePoint2").getBoundingClientRect().left))/2)+4+"px";
+        averageLine2.style.top = (Math.min(document.getElementById("averagePoint2").getBoundingClientRect().top,document.getElementById("averagePoint3").getBoundingClientRect().top) + Math.abs(document.getElementById("averagePoint2").getBoundingClientRect().top-document.getElementById("averagePoint3").getBoundingClientRect().top)/2)+3+"px";
+        document.getElementById("main").appendChild(averageLine2);
+        var averageLine3 = document.createElement("div");
+        averageLine3.style.backgroundColor = "#60636b";
+        averageLine3.style.position = "absolute";
+        averageLine3.style.height = ".2vw";
+        averageLine3.style.width = Math.ceil(Math.sqrt((document.getElementById("averagePoint3").getBoundingClientRect().left-document.getElementById("averagePoint4").getBoundingClientRect().left)*(document.getElementById("averagePoint3").getBoundingClientRect().left-document.getElementById("averagePoint4").getBoundingClientRect().left)+(document.getElementById("averagePoint3").getBoundingClientRect().top-document.getElementById("averagePoint4").getBoundingClientRect().top)*(document.getElementById("averagePoint3").getBoundingClientRect().top-document.getElementById("averagePoint4").getBoundingClientRect().top)))+"px";
+        averageLine3.style.transform = `rotate(${Math.atan2(document.getElementById("averagePoint4").getBoundingClientRect().top-document.getElementById("averagePoint3").getBoundingClientRect().top, document.getElementById("averagePoint4").getBoundingClientRect().left-document.getElementById("averagePoint3").getBoundingClientRect().left)*180/Math.PI}deg)`;
+        averageLine3.style.left = (document.getElementById("averagePoint3").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("averagePoint3").getBoundingClientRect().left-document.getElementById("averagePoint4").getBoundingClientRect().left)*(document.getElementById("averagePoint3").getBoundingClientRect().left-document.getElementById("averagePoint4").getBoundingClientRect().left)+(document.getElementById("averagePoint3").getBoundingClientRect().top-document.getElementById("averagePoint4").getBoundingClientRect().top)*(document.getElementById("averagePoint3").getBoundingClientRect().top-document.getElementById("averagePoint4").getBoundingClientRect().top))) - Math.abs(document.getElementById("averagePoint4").getBoundingClientRect().left-document.getElementById("averagePoint3").getBoundingClientRect().left))/2)+7+"px";
+        averageLine3.style.top = (Math.min(document.getElementById("averagePoint3").getBoundingClientRect().top,document.getElementById("averagePoint4").getBoundingClientRect().top) + Math.abs(document.getElementById("averagePoint3").getBoundingClientRect().top-document.getElementById("averagePoint4").getBoundingClientRect().top)/2)+2.5+"px";
+        document.getElementById("main").appendChild(averageLine3);
+        var averageLine4 = document.createElement("div");
+        averageLine4.style.backgroundColor = "#60636b";
+        averageLine4.style.position = "absolute";
+        averageLine4.style.height = ".2vw";
+        averageLine4.style.width = Math.ceil(Math.sqrt((document.getElementById("averagePoint4").getBoundingClientRect().left-document.getElementById("averagePoint5").getBoundingClientRect().left)*(document.getElementById("averagePoint4").getBoundingClientRect().left-document.getElementById("averagePoint5").getBoundingClientRect().left)+(document.getElementById("averagePoint4").getBoundingClientRect().top-document.getElementById("averagePoint5").getBoundingClientRect().top)*(document.getElementById("averagePoint4").getBoundingClientRect().top-document.getElementById("averagePoint5").getBoundingClientRect().top)))+"px";
+        averageLine4.style.transform = `rotate(${Math.atan2(document.getElementById("averagePoint5").getBoundingClientRect().top-document.getElementById("averagePoint4").getBoundingClientRect().top, document.getElementById("averagePoint5").getBoundingClientRect().left-document.getElementById("averagePoint4").getBoundingClientRect().left)*180/Math.PI}deg)`;
+        averageLine4.style.left = (document.getElementById("averagePoint4").getBoundingClientRect().left-(Math.ceil(Math.sqrt((document.getElementById("averagePoint4").getBoundingClientRect().left-document.getElementById("averagePoint5").getBoundingClientRect().left)*(document.getElementById("averagePoint4").getBoundingClientRect().left-document.getElementById("averagePoint5").getBoundingClientRect().left)+(document.getElementById("averagePoint4").getBoundingClientRect().top-document.getElementById("averagePoint5").getBoundingClientRect().top)*(document.getElementById("averagePoint4").getBoundingClientRect().top-document.getElementById("averagePoint5").getBoundingClientRect().top))) - Math.abs(document.getElementById("averagePoint5").getBoundingClientRect().left-document.getElementById("averagePoint4").getBoundingClientRect().left))/2)+7+"px";
+        averageLine4.style.top = (Math.min(document.getElementById("averagePoint4").getBoundingClientRect().top,document.getElementById("averagePoint5").getBoundingClientRect().top) + Math.abs(document.getElementById("averagePoint4").getBoundingClientRect().top-document.getElementById("averagePoint5").getBoundingClientRect().top)/2)+2.5+"px";
+        document.getElementById("main").appendChild(averageLine4);
+    }, 500)
 }
 
 const clientNames = {
-    abc:"Test Account"
+    "Tobywap!75":"United States",
+    A11309:"Republic of Poland",
+    greece:"Kingdom of Greece",
+    "√(t(n)) - √(t(n-1) = 1":"Brazil",
+    O1512:"Iran",
+    sweden:"Sweden",
+    germany:"New Germany"
 }
 const clientData = {}
-var serverURL1 = "";
+var serverURL1 = "https://sheetdb.io/api/v1/60kwt987z708g";
 var serverURL2 = "https://sheetdb.io/api/v1/c6fsu6g25zbol"; // usabankingserver1@gmail.com
 var serverURL3 = "https://sheetdb.io/api/v1/dhfrn9eco3t9u"; // usabankingserver2@gmail.com
 var serverURL4 = "";
@@ -467,7 +511,7 @@ var y = data[0][x];
 clientData[x] = y;
 }
 }).catch(err => {
-fetch(serverURL2).then(response => {
+fetch(serverURL3).then(response => {
 console.log("Server 3 connected.");
 return response.json();
 }).then(data => {
@@ -477,9 +521,7 @@ var y = data[0][x];
 clientData[x] = y;
 }
 }).catch(err => {
-setInterval(function() {
 alert("We ran into an error! Please contact 012578@clioschools.net for support.");
-})
 });
 });
 });
