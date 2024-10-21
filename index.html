@@ -558,7 +558,7 @@ function submitTransfer() {
             document.getElementById("sender").value = Object.getOwnPropertyNames(clientData)[Object.values(clientNames).indexOf(document.getElementById("name").textContent)];
             document.getElementById("senderBalance").value = Object.values(clientData)[Object.values(clientNames).indexOf(document.getElementById("name").textContent)] - parseInt(document.getElementById("amount").value.replace("e", "").replace("-", ""));
             sendTransfer();
-            document.getElementById("balance").textContent = (parseInt(document.getElementById("balance").textContent.replace("$", "").replaceAll(",", "")) - document.getElementById("amount").value).toLocaleString();
+            document.getElementById("balance").textContent = "$"+(parseInt(document.getElementById("balance").textContent.replace("$", "").replaceAll(",", "")) - document.getElementById("amount").value).toLocaleString();
             showResult("Successfully transferred.");
         } else {
             showResult("Not enough money.");
