@@ -1,6 +1,6 @@
 // WRITTEN BY LUKE SKUTT 10/16/2024
 const clientNames = {
-    "Tobywap!75":"United States",
+    "Tobywap!75":"Damerica",
     A11309:"Republic of Poland",
     "3251821":"Kingdom of Greece",
     "√t(n) - √t(n-1) = 1":"Brazil",
