@@ -45,7 +45,7 @@ var y = data[0][x];
 clientData[x] = y;
 }
 }).catch(err => {
-fetch(serverURL3).then(response => {
+fetch(serverURL4).then(response => {
 console.log("Server 3 connected.");
 return response.json();
 }).then(data => {
