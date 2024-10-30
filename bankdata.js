@@ -49,13 +49,14 @@ fetch(serverURL4).then(response => {
 console.log("Server 4 connected.");
 return response.json();
 }).then(data => {
-for(let i = 0; i < Object.keys(clientNames).length; i++){
+for(let i = 0; i < Object.keys(clientNames).length; i++) {
 var x = Object.keys(clientNames)[i];
 var y = data[0][x];
 clientData[x] = y;
 }
-}).catch(err = > {
-alert("We ran into an error! Please contact 012578@clioschools.net for support.");  
+}).catch(err => {
+alert("We ran into an error! Please contact 012578@clioschools.net for support.");
+})
 });
 });
 });
