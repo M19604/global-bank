@@ -54,8 +54,6 @@ var x = Object.keys(clientNames)[i];
 var y = data[0][x];
 clientData[x] = y;
 }
-}).catch(err => {
-alert("We ran into an error! Please contact 012578@clioschools.net for support.");
 })
 });
 });
