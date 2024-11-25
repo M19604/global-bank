@@ -5,7 +5,6 @@ const clientNames = {
     "3251821":"Kingdom of Greece",
     "√t(n) - √t(n-1) = 1":"Brazil",
     O1512:"Iran",
-    sweden:"Sweden",
     germany:"New Germany"
 }
 var clientData = {}
