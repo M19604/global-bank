@@ -502,7 +502,7 @@ document.getElementById("transfer").addEventListener("keyup", e => {
 })
 function submitTransfer() {
     if (Object.values(clientNames).includes(document.getElementById("transfer").value.trim()) && document.getElementById("transfer").value.trim() !== document.getElementById("name").textContent) {
-        if (parseInt(clientData[document.getElementById("pin").value])>=document.getElementById("amount").value||document.getElementById("amount").value>0) {
+        if (parseInt(clientData[document.getElementById("pin").value])>=document.getElementById("amount").value&&document.getElementById("amount").value>0) {
             document.getElementById("recipient").value = Object.getOwnPropertyNames(clientData)[Object.values(clientNames).indexOf(document.getElementById("transfer").value.trim())];
             document.getElementById("recipientBalance").value = Object.values(clientData)[Object.values(clientNames).indexOf(document.getElementById("transfer").value.trim())] + parseInt(document.getElementById("amount").value.replace("e", "").replace("-", ""));
             document.getElementById("sender").value = Object.getOwnPropertyNames(clientData)[Object.values(clientNames).indexOf(document.getElementById("name").textContent)];
