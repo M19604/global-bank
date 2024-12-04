@@ -5,7 +5,8 @@ const clientNames = {
     "3251821":"Kingdom of Greece",
     "√t(n) - √t(n-1) = 1":"Brazil",
     O1512:"Iran",
-    germany:"New Germany"
+    germany:"New Germany",
+    321CBA:"China"
 }
 var clientData = {}
 var serverURL1 = "https://sheetdb.io/api/v1/60kwt987z708g"; // jack.lawson20060@gmail.com
